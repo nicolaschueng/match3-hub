@@ -11,7 +11,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     api.brief().then(setBrief);
-    api.articles({ limit: 6 }).then(setArticles);
+    api.articles({ limit: 6, match3: true }).then(setArticles);
     api.games().then(setGames);
   }, []);
 
@@ -40,15 +40,19 @@ export default function Dashboard() {
       </header>
 
       {/* Daily Brief */}
-      <section className="card p-6">
-        <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="h-5 w-5 text-accent-400" />
-          <h2 className="section-title">每日 AI 简报</h2>
-          <span className="chip ml-2">{brief?.date || '—'}</span>
+      <section className="card p-6 relative overflow-hidden">
+        <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-brand-500/15 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-accent-500/10 blur-3xl pointer-events-none" />
+        <div className="relative">
+          <div className="flex items-center gap-2 mb-3">
+            <Sparkles className="h-5 w-5 text-accent-400" />
+            <h2 className="section-title">每日 AI 简报</h2>
+            <span className="chip ml-2">{brief?.date || '—'}</span>
+          </div>
+          <p className="text-slate-100 text-[15px] md:text-base leading-relaxed whitespace-pre-wrap">
+            {brief?.brief || '正在生成每日简报……'}
+          </p>
         </div>
-        <p className="text-slate-200 leading-relaxed whitespace-pre-wrap">
-          {brief?.brief || '正在生成每日简报……'}
-        </p>
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -113,16 +117,20 @@ export default function Dashboard() {
             <h3 className="section-title">最新资讯</h3>
             <Link to="/news" className="ml-auto text-xs text-brand-300 hover:text-brand-200">查看全部 →</Link>
           </div>
-          <ul className="space-y-3">
+          <ul className="space-y-4">
             {articles.length === 0 && <li className="text-sm text-slate-400">后台正在抓取最新资讯，请稍候或点击右上角「立即刷新」。</li>}
             {articles.map((a) => (
-              <li key={a.id} className="group">
+              <li key={a.id} className="group border-l-2 border-brand-500/40 pl-3 hover:border-brand-400">
                 <a href={a.url} target="_blank" rel="noreferrer" className="block">
-                  <div className="text-sm text-slate-100 group-hover:text-brand-300 line-clamp-2">{a.title}</div>
-                  <div className="mt-1 text-xs text-slate-500 flex items-center gap-2">
+                  <div className="text-sm text-slate-100 group-hover:text-brand-200 leading-snug line-clamp-2 font-medium">
+                    {a.ai_summary || a.title}
+                  </div>
+                  <div className="mt-1 text-[11px] text-slate-500 flex items-center gap-2 flex-wrap">
+                    <span className={`rounded px-1 py-0.5 text-[10px] ${a.lang === 'zh' ? 'bg-brand-500/15 text-brand-300' : 'bg-accent-500/15 text-accent-400'}`}>
+                      {a.lang === 'zh' ? '中' : 'EN'}
+                    </span>
                     <span>{a.source_name}</span>·
                     <span>{new Date(a.published_at).toLocaleDateString('zh-CN')}</span>
-                    {a.tags?.slice(0, 2).map((t) => <span key={t} className="chip !py-0">{t}</span>)}
                   </div>
                 </a>
               </li>

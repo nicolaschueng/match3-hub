@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ExternalLink, Filter, Globe2, Search } from 'lucide-react';
+import { ExternalLink, Filter, Globe2, Search, Quote } from 'lucide-react';
 import { api, Article, Source } from '../lib/api';
 
 export default function News() {
@@ -14,20 +14,31 @@ export default function News() {
   }, []);
 
   useEffect(() => {
-    api.articles({ lang: lang || undefined, q: q || undefined, tag: tag || undefined, limit: 100 }).then(setArticles);
+    api.articles({ lang: lang || undefined, q: q || undefined, tag: tag || undefined, limit: 120 }).then(setArticles);
   }, [lang, q, tag]);
+
+  const stat = useMemo(() => {
+    const total = articles.length;
+    const zh = articles.filter((a) => a.lang === 'zh').length;
+    return { total, zh, en: total - zh };
+  }, [articles]);
 
   const allTags = useMemo(() => {
     const s = new Set<string>();
     articles.forEach((a) => a.tags?.forEach((t) => s.add(t)));
-    return Array.from(s).slice(0, 16);
+    return Array.from(s).slice(0, 18);
   }, [articles]);
 
   return (
     <div className="space-y-6">
       <header>
         <h1 className="text-3xl font-bold tracking-tight">新闻动态</h1>
-        <p className="muted mt-1">全球 {sources.length} 个信源 · AI 每日自动摘要与打标 · 下次更新：07:00 / 19:00</p>
+        <p className="muted mt-1">
+          全球 {sources.length} 个信源 · 每条资讯由 AI / 规则生成一句话中文总结 · 每日 07:00 / 19:00 自动更新
+        </p>
+        <div className="mt-2 text-xs text-slate-500">
+          共 <span className="text-slate-200">{stat.total}</span> 条 · 中文 <span className="text-slate-200">{stat.zh}</span> · 英文 <span className="text-slate-200">{stat.en}</span>
+        </div>
       </header>
 
       <div className="card p-4 flex flex-col md:flex-row md:items-center gap-3">
@@ -36,7 +47,7 @@ export default function News() {
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="搜索标题 / 摘要关键字：Royal Match、Playrix、买量…"
+            placeholder="搜索标题 / 总结关键字：Royal Match、Playrix、买量…"
             className="bg-transparent outline-none flex-1 text-sm placeholder:text-slate-500"
           />
         </div>
@@ -63,26 +74,10 @@ export default function News() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {articles.length === 0 && (
           <div className="card p-8 text-center text-slate-400 md:col-span-2">
-            暂无匹配资讯。后台会自动抓取，也可以点右上角「立即刷新」。
+            暂无匹配资讯。后台每日自动抓取，你也可以点右上角「立即刷新」。
           </div>
         )}
-        {articles.map((a) => (
-          <a key={a.id} href={a.url} target="_blank" rel="noreferrer" className="card card-hover p-5 block">
-            <div className="flex items-center gap-2 text-xs text-slate-500">
-              <span>{a.source_name}</span>·
-              <span>{new Date(a.published_at).toLocaleDateString('zh-CN')}</span>
-              <span className="ml-auto chip">{a.lang === 'zh' ? '中文' : 'EN'}</span>
-            </div>
-            <h3 className="mt-2 text-base font-semibold leading-snug group-hover:text-brand-300">{a.title}</h3>
-            <p className="mt-2 text-sm text-slate-300 line-clamp-3">{a.ai_summary}</p>
-            <div className="mt-3 flex items-center gap-2 flex-wrap">
-              {a.tags?.map((t) => <span key={t} className="chip">{t}</span>)}
-              <span className="ml-auto text-xs text-brand-300 inline-flex items-center gap-1">
-                阅读原文 <ExternalLink className="h-3 w-3" />
-              </span>
-            </div>
-          </a>
-        ))}
+        {articles.map((a) => <NewsCard key={a.id} a={a} />)}
       </div>
 
       <section className="card p-5 mt-2">
@@ -103,5 +98,43 @@ export default function News() {
         </div>
       </section>
     </div>
+  );
+}
+
+function NewsCard({ a }: { a: Article }) {
+  const time = new Date(a.published_at).toLocaleDateString('zh-CN');
+  return (
+    <a href={a.url} target="_blank" rel="noreferrer" className="card card-hover p-5 block group">
+      {/* 顶部：来源 + 时间 + 语言徽标 */}
+      <div className="flex items-center gap-2 text-xs text-slate-500">
+        <span className={`inline-flex items-center justify-center rounded px-1.5 py-0.5 text-[10px] font-semibold ${a.lang === 'zh' ? 'bg-brand-500/15 text-brand-300' : 'bg-accent-500/15 text-accent-400'}`}>
+          {a.lang === 'zh' ? '中文' : 'EN'}
+        </span>
+        <span>{a.source_name}</span>
+        <span>·</span>
+        <span>{time}</span>
+      </div>
+
+      {/* 主体：一句话总结（主角） */}
+      <div className="mt-3 flex gap-3">
+        <Quote className="h-5 w-5 text-brand-400/70 shrink-0 mt-0.5" />
+        <p className="text-[15px] md:text-base font-medium leading-snug text-slate-100 group-hover:text-brand-200 line-clamp-3">
+          {a.ai_summary || a.title}
+        </p>
+      </div>
+
+      {/* 次级：原标题 */}
+      <div className="mt-3 text-xs text-slate-500 line-clamp-2 pl-8" title={a.title}>
+        原文标题：{a.title}
+      </div>
+
+      {/* 底部：标签 + 跳转 */}
+      <div className="mt-3 flex items-center gap-2 flex-wrap pl-8">
+        {a.tags?.slice(0, 4).map((t) => <span key={t} className="chip">{t}</span>)}
+        <span className="ml-auto text-xs text-brand-300 inline-flex items-center gap-1">
+          阅读原文 <ExternalLink className="h-3 w-3" />
+        </span>
+      </div>
+    </a>
   );
 }

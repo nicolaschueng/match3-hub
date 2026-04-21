@@ -33,12 +33,15 @@ app.get('/api/brief', (_req, res) => {
 });
 
 app.get('/api/articles', (req, res) => {
-  const { lang, q, tag, limit = 50 } = req.query;
+  const { lang, q, tag, limit = 50, match3 } = req.query;
   let sql = 'SELECT * FROM articles WHERE 1=1';
   const args = [];
   if (lang) { sql += ' AND lang = ?'; args.push(lang); }
   if (q) { sql += ' AND (title LIKE ? OR ai_summary LIKE ?)'; args.push(`%${q}%`, `%${q}%`); }
   if (tag) { sql += ' AND tags LIKE ?'; args.push(`%${tag}%`); }
+  if (match3 === 'true' || match3 === '1') {
+    sql += " AND (tags LIKE '%#消除%' OR tags LIKE '%#三消%' OR tags LIKE '%#RoyalMatch%' OR tags LIKE '%#CandyCrush%' OR tags LIKE '%#Playrix%' OR tags LIKE '%#King%')";
+  }
   sql += ' ORDER BY published_at DESC, id DESC LIMIT ?';
   args.push(Number(limit) || 50);
   const rows = db.prepare(sql).all(...args);

@@ -17,6 +17,7 @@ db.exec(`
   DELETE FROM learning_modules;
   DELETE FROM learning_plans;
   DELETE FROM reports;
+  DELETE FROM articles;
 `);
 
 console.log('[seed] inserting sources...');
