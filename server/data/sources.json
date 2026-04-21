@@ -1,0 +1,21 @@
+[
+  { "name": "GameLook", "url": "https://www.gamelook.com.cn/", "rss_url": "https://www.gamelook.com.cn/feed", "lang": "zh", "focus": "游戏资讯/消除赛道/买量", "notes": "国内游戏产业综合媒体" },
+  { "name": "GameRes 游资网", "url": "https://www.gameres.com/", "rss_url": "https://www.gameres.com/feed", "lang": "zh", "focus": "研发/策划/拆解", "notes": "面向游戏从业者" },
+  { "name": "游戏葡萄", "url": "https://www.youxiputao.com/", "rss_url": "", "lang": "zh", "focus": "消除/研发/关卡设计", "notes": "微信公众号为主，RSS 不稳定" },
+  { "name": "游戏茶馆", "url": "https://www.youxichaguan.com/", "rss_url": "", "lang": "zh", "focus": "消除/出海", "notes": "行业风向" },
+  { "name": "竞核", "url": "https://www.cgames.com/", "rss_url": "", "lang": "zh", "focus": "游戏数字化/消除", "notes": "" },
+  { "name": "罗斯基", "url": "https://www.yumaochuhai.com/authorview/10873", "rss_url": "", "lang": "zh", "focus": "休闲/消除/出海", "notes": "公众号为主" },
+  { "name": "白鲸出海", "url": "https://www.baijing.cn/", "rss_url": "", "lang": "zh", "focus": "出海/消除海外", "notes": "" },
+  { "name": "AppGrowing 报告中心", "url": "https://appgrowing.net/blog/category/reports_cn/monthly-report_cn/", "rss_url": "", "lang": "zh", "focus": "买量/素材", "notes": "需登录查看全量报告" },
+  { "name": "PocketGamer.biz", "url": "https://www.pocketgamer.biz/latest/", "rss_url": "https://www.pocketgamer.biz/rss", "lang": "en", "focus": "移动游戏新闻/消除品类", "notes": "" },
+  { "name": "GamesIndustry.biz - News", "url": "https://www.gamesindustry.biz/", "rss_url": "https://www.gamesindustry.biz/feed/news", "lang": "en", "focus": "产业新闻/市场", "notes": "" },
+  { "name": "GamesIndustry.biz - Features", "url": "https://www.gamesindustry.biz/", "rss_url": "https://www.gamesindustry.biz/feed/features", "lang": "en", "focus": "深度特稿", "notes": "" },
+  { "name": "GamesIndustry.biz - Data", "url": "https://www.gamesindustry.biz/", "rss_url": "https://www.gamesindustry.biz/feed/data", "lang": "en", "focus": "数据/报告", "notes": "" },
+  { "name": "Game Developer", "url": "https://www.gamedeveloper.com/", "rss_url": "https://www.gamedeveloper.com/rss.xml", "lang": "en", "focus": "游戏开发/设计", "notes": "原 Gamasutra" },
+  { "name": "Mobile Dev Memo", "url": "https://mobiledevmemo.com/", "rss_url": "https://mobiledevmemo.com/feed/", "lang": "en", "focus": "UA/变现/休闲赛道", "notes": "Eric Seufert" },
+  { "name": "Deconstructor of Fun", "url": "https://www.deconstructoroffun.com/blog", "rss_url": "https://www.deconstructoroffun.com/blog?format=rss", "lang": "en", "focus": "产品拆解/消除/休闲", "notes": "" },
+  { "name": "Naavik Digest", "url": "https://naavik.co/digest/", "rss_url": "https://naavik.co/digest/feed/", "lang": "en", "focus": "游戏商业研究/Royal Match 拆解", "notes": "" },
+  { "name": "GameRefinery Blog", "url": "https://www.gamerefinery.com/blog/", "rss_url": "https://www.gamerefinery.com/feed/", "lang": "en", "focus": "移动游戏数据/洞察", "notes": "" },
+  { "name": "Sensor Tower Blog", "url": "https://sensortower.com/blog", "rss_url": "", "lang": "en", "focus": "App 数据/手游报告", "notes": "官方博客" },
+  { "name": "AppMagic Blog", "url": "https://appmagic.rocks/blog", "rss_url": "", "lang": "en", "focus": "市场情报", "notes": "" }
+]

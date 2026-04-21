@@ -1,0 +1,222 @@
+[
+  {
+    "level": "L1",
+    "order_idx": 1,
+    "title": "消除品类演化史：从 Bejeweled 到 Royal Match",
+    "summary": "20 年消除赛道三次大的范式跃迁——从 Bejeweled 的纯消除，到 Candy Crush 的关卡化+道具化，再到 Royal Match 的 4 色/25 步/轻装饰极简范式。",
+    "key_points": [
+      "2001 Bejeweled：交换消除、级联反应、重力系统奠定基石",
+      "2012 Candy Crush Saga：关卡化、道具组合、FB 社交裂变、多目标类型",
+      "2016 Gardenscapes：三消+装饰元游戏开创 Scapes 范式",
+      "2021 Royal Match：4 色棋盘/25 步/轻装饰/100% 执行力的新王"
+    ],
+    "cases": [
+      "Candy Crush 第 77 关作为首道付费墙，通过 A/B 测试把流失率从 2.29% 降至 1.5%",
+      "Royal Match 通过 50-60% 买量占比 + 年 60 次 A/B 测试把生命周期 RPD 推到 $34"
+    ],
+    "resources": [
+      { "label": "Naavik: Royal Match - The New King from Turkey", "url": "https://www.deconstructoroffun.com/blog/2021/3/21/royal-match-the-new-king-from-turkey" },
+      { "label": "Naavik: The Royal Blueprint", "url": "https://naavik.co/digest/why-dream-games-success-is-a-challenge-to-replicate/" },
+      { "label": "GDC: Candy Crush Saga Postmortem - Luck in the Right Places", "url": "https://www.gdcvault.com/play/1018053/Candy-Crush-Saga-Postmortem-Luck" }
+    ]
+  },
+  {
+    "level": "L1",
+    "order_idx": 2,
+    "title": "核心循环与基础机制：Swap / Tap / Blast / Link",
+    "summary": "解构消除的观察→决策→操作→反馈四步循环，区分 4 类基础交互与级联反应，理解不同机制对节奏与爽感的影响。",
+    "key_points": [
+      "Swap 交换：Candy Crush 家族代表，回合明确",
+      "Tap 点击：Toon Blast/Toy Blast 家族，节奏更快",
+      "Blast 爆炸：特殊棋子引爆，体验高潮点",
+      "Link 连线：Fishdom 家族部分模式，节奏中等",
+      "级联（Cascade）是所有爽感的基础：匹配→下落→新匹配→连锁"
+    ],
+    "cases": [
+      "Royal Match 支持并发匹配：级联进行中玩家仍可操作，这是 \"流畅感\" 的核心"
+    ],
+    "resources": [
+      { "label": "Game Design Library - Match-3 机制分析", "url": "https://nightblade9.github.io/game-design-library/tags/match-3.html" },
+      { "label": "The Royal Crush: Analysis of Match-3 Mechanics (IEEE)", "url": "https://ieeexplore.ieee.org/document/10645636" }
+    ]
+  },
+  {
+    "level": "L2",
+    "order_idx": 1,
+    "title": "关卡目标类型与多目标组合",
+    "summary": "五大关卡目标：Score / Ingredient / Time / Blocker / Hybrid。如何通过目标组合制造差异化关卡。",
+    "key_points": [
+      "Score 分数目标：门槛型，常用于教学关",
+      "Ingredient 收集目标：需要策略性消除，最典型的三消关卡",
+      "Time 限时：紧张感来源，用在活动关",
+      "Blocker 清障：冰块/链条/蜂蜜，策略维度",
+      "Hybrid 多目标：中后期主力，难度梯度核心"
+    ],
+    "cases": [
+      "Gardenscapes 后期关卡常同时包含 \"收集樱桃 + 消除冰块 + 达到指定分数\" 三重目标",
+      "Playrix 规定：单个关卡同时出现的元素不得超过 3-4 个，避免混乱"
+    ],
+    "resources": [
+      { "label": "Playrix GDC: Creating Levels and Elements for Match-3", "url": "https://gameworldobserver.com/2019/09/27/playrix-levels-elements-match-3" },
+      { "label": "Game Developer: King's Guide to Level Design", "url": "https://www.gamedeveloper.com/design/video-king-s-guide-to-level-design-for-casual-games" }
+    ]
+  },
+  {
+    "level": "L2",
+    "order_idx": 2,
+    "title": "难度曲线与流失分析",
+    "summary": "难度曲线应呈锯齿形（易-难-易-难），而非单调上升；围绕 7 日流失率、平均尝试次数、投影-实际曲线差值做迭代。",
+    "key_points": [
+      "7 日流失率：识别玩家放弃的关键关卡",
+      "平均尝试次数：3-5 次通过 = 健康，> 8 次需调整",
+      "投影曲线 vs 实际曲线：识别设计偏差",
+      "信任银行模型：前 50 关积累信任，中期提取信任做变现"
+    ],
+    "cases": [
+      "Royal Match \"近乎胜利\" 场景：让玩家在差 1-2 步时触发 IAP，购买感知价值极高",
+      "Gardenscapes：16 种机制/300 关卡 → 半年后扩展到 29 种机制/1300 关卡"
+    ],
+    "resources": [
+      { "label": "Naavik: Royal Match - Success Through Iteration", "url": "https://naavik.co/digest/royal-match-finding-success-through-iteration/" },
+      { "label": "GDC: Blockers - Difficulty Drivers in Candy Crush", "url": "https://www.gdcvault.com/play/1026879/Blockers-Analyzing-Difficulty-Drivers-in" }
+    ]
+  },
+  {
+    "level": "L2",
+    "order_idx": 3,
+    "title": "FTUE 新手体验：5 分钟留住玩家",
+    "summary": "FTUE 三要素：核心体验传达（最重要）、目标感养成、基础规则引导。30 秒内让玩家体验级联高潮。",
+    "key_points": [
+      "第一关 30 秒内让玩家至少经历 3-4 次级联",
+      "非强制引导 > 强制手把手（参考《部落冲突》）",
+      "失败反馈清晰，重试 0.5 秒内加载",
+      "长期目标（国王复兴/花园重建）提供回归动机"
+    ],
+    "cases": [
+      "Royal Match 第 1 关：20 秒内 3-4 次爆炸 + 金币奖励 + 国王剧情闪回",
+      "《SIFU》FTUE 反例参考：电影式开场、无冗长文字、失败即学习"
+    ],
+    "resources": [
+      { "label": "游戏葡萄 - FTUE 设计方法论", "url": "https://www.36kr.com/p/1949095037028996" }
+    ]
+  },
+  {
+    "level": "L3",
+    "order_idx": 1,
+    "title": "元玩法（Meta Layer）：装修/剧情/社交",
+    "summary": "元玩法是长线留存的载体。从 Gardenscapes 的重度装修剧情，到 Royal Match 的 \"恰到好处\" 轻元游戏。",
+    "key_points": [
+      "重度元游戏（Playrix 系）：叙事+装修+角色，留存高但学习成本大",
+      "轻度元游戏（Royal Match 系）：极简装饰，把焦点留给核心玩法",
+      "社交元玩法（Match Masters）：PVP 实时对战开辟新分支",
+      "A/B 测试决定深度：Dream Games 曾测过 3 种方案才定案"
+    ],
+    "cases": [
+      "Royal Match 轻元游戏逆势成功：84% 休闲玩家寻求放松体验",
+      "Match Masters 用实时 PVP 打破 PVE 垄断，累计流水 $3 亿"
+    ],
+    "resources": [
+      { "label": "Deconstructor of Fun: Gardenscapes Deconstruction", "url": "https://mobilefreetoplay.com/deconstructing-gardenscapes/" },
+      { "label": "Naavik: Why Dream Games is a Challenge to Replicate", "url": "https://naavik.co/digest/why-dream-games-success-is-a-challenge-to-replicate/" }
+    ]
+  },
+  {
+    "level": "L3",
+    "order_idx": 2,
+    "title": "赛季活动与 LiveOps 节奏",
+    "summary": "每 3 周一个赛季/活动是 Playrix/Dream 的通用节奏。Golden Offers、Expedition、Treasure Hunt 等活动复用率高。",
+    "key_points": [
+      "活动复用公式：相同框架 + 不同皮肤 + 不同奖励曲线",
+      "双轨经济：主线金币 + 活动代币，两条独立通路",
+      "限时压力：活动代币不可保留，产生 FOMO",
+      "社交节点：公会/好友/助攻是活动参与的倍增器"
+    ],
+    "cases": [
+      "Playrix Expedition：3 周一个新主题活动，覆盖 Gardenscapes/Homescapes/Fishdom",
+      "Royal Match Hidden Temple / Train Journey 活动，带独立迷你游戏皮肤"
+    ],
+    "resources": [
+      { "label": "GameRefinery - LiveOps in Mobile Games", "url": "https://www.gamerefinery.com/blog/" }
+    ]
+  },
+  {
+    "level": "L4",
+    "order_idx": 1,
+    "title": "消除游戏经济系统设计",
+    "summary": "四条主货币通路：金币、生命/能量、道具、活动代币。每条通路的产出、消耗、汇率都需要精细调优。",
+    "key_points": [
+      "金币：主硬通货，产出稳定但消耗大",
+      "生命/能量：时间门槛，引导离开并回归",
+      "道具/加成器：战斗中消耗品，是 IAP 核心驱动",
+      "活动代币：限时稀缺，产生付费拉升",
+      "核心指标：ARPPU、ARPDAU、LTV、付费渗透率"
+    ],
+    "cases": [
+      "Royal Match 标准商店包 ≈ 900 金币，对应 5 步加买，让 \"差一步通关\" 玩家愿意付费",
+      "Candy Crush 生命 30 分钟恢复一点，最多 5 点，逼玩家选择等待或社交索取"
+    ],
+    "resources": [
+      { "label": "Business of Apps - Puzzle Games Market", "url": "https://www.businessofapps.com/data/puzzle-games-market/" }
+    ]
+  },
+  {
+    "level": "L4",
+    "order_idx": 2,
+    "title": "变现模式：IAP vs IAA vs 混合",
+    "summary": "消除品类的三种变现结构：纯 IAP（Royal Match/Candy Crush）、IAP+IAA 混合（Playrix 系）、IAA 主导（小游戏）。",
+    "key_points": [
+      "纯 IAP：头部产品首选，拉满 ARPPU",
+      "混合变现：Playrix 激励视频嵌入商店与关卡间隙，IAA 占 15-30%",
+      "IAA 主导：适合超休闲/小游戏，需要极致留存",
+      "混合趋势：IAP 游戏增 IAA、IAA 游戏增 IAP，边界模糊化"
+    ],
+    "cases": [
+      "Royal Match 2024 总流水 $1.46B，几乎全部来自 IAP",
+      "Gardenscapes 激励视频位置：关卡失败后 \"看广告得 5 步\" 转化率极高"
+    ],
+    "resources": [
+      { "label": "Unity Mobile Growth & Monetization Report 2024", "url": "https://unity.com/resources/mobile-growth-monetization-report-2024" },
+      { "label": "PocketGamer: Casual Genre made $15.2B", "url": "https://www.pocketgamer.biz/royal-match-earned-51-of-all-match-3-revenue-in-2024/" }
+    ]
+  },
+  {
+    "level": "L5",
+    "order_idx": 1,
+    "title": "买量素材方法论：从创意到迭代",
+    "summary": "消除赛道买量素材方法论：Fake Gameplay、Save the King、拔销钉等经典套路，以及 A/B 测试驱动的素材工业化。",
+    "key_points": [
+      "Fake Gameplay：真游戏内无该玩法，快速吸量但有转化风险",
+      "真实即忠诚：Royal Match 的 Save the King 广告确保游戏内真实存在",
+      "素材矩阵：1 个创意原型 × 多个美术风格 × 多个时长",
+      "买量节奏：新关卡/新活动节点集中冲量"
+    ],
+    "cases": [
+      "Royal Match Save the King 系列：广告画面的噩梦关卡游戏内真实存在，建立信任",
+      "Gardenscapes 拔销钉广告：高点击低留存的经典反面教材"
+    ],
+    "resources": [
+      { "label": "AppGrowing 月度买量报告", "url": "https://appgrowing.net/blog/category/reports_cn/monthly-report_cn/" },
+      { "label": "DataEye 买量白皮书", "url": "https://www.dataeye.com/" }
+    ]
+  },
+  {
+    "level": "L5",
+    "order_idx": 2,
+    "title": "A/B 测试驱动的长线运营",
+    "summary": "Dream Games 的秘密武器：年 60 次 A/B 测试。每个新玩法、定价、关卡难度都经过 A/B 验证。",
+    "key_points": [
+      "测试对象：元游戏深度、商店定价、关卡难度、新玩法引入点",
+      "测试指标：留存、付费渗透率、ARPPU、关卡流失率",
+      "胜出条件：不是单一指标最优，而是综合曲线最优",
+      "失败也是数据：Royal Match 曾测试 \"关卡胜利后付金币买 10 倍奖励\"，失败后果断放弃"
+    ],
+    "cases": [
+      "Royal Match 超级光球：A/B 测试后单独带来 1.5 倍收入增长",
+      "超级公爵功能因蚕食金币购买被叫停，展示 A/B 测试的纠错能力"
+    ],
+    "resources": [
+      { "label": "Naavik: Royal Match 60 A/B Tests per Year", "url": "https://naavik.co/digest/royal-match-finding-success-through-iteration/" },
+      { "label": "Cubix: Royal Match Design Decisions", "url": "https://www.cubix.co/blog/the-design-decisions-that-made-royal-match-a-top-grossing-game/" }
+    ]
+  }
+]

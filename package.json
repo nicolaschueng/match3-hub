@@ -1,0 +1,17 @@
+{
+  "name": "match3-hub",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Match3 Hub - 消除游戏设计学习平台（新闻聚合 / 数据查询 / 设计学院 / 深度报告，含 AI 每日简报）",
+  "scripts": {
+    "install:all": "npm install && npm --prefix server install && npm --prefix client install",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "dev": "concurrently -k -n SERVER,CLIENT -c cyan,magenta \"npm:dev:server\" \"npm:dev:client\"",
+    "build": "npm --prefix client run build",
+    "seed": "npm --prefix server run seed"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

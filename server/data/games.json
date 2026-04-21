@@ -1,0 +1,235 @@
+[
+  {
+    "title": "Royal Match",
+    "publisher": "Dream Games",
+    "region": "Global",
+    "released_year": 2021,
+    "downloads": "3亿+ 累计下载",
+    "revenue_monthly_usd": "≈ $122M / 月（2024 年均）",
+    "revenue_timestamp": "2024 FY",
+    "dau": "N/A",
+    "mau": "5,500 万（2025）",
+    "chart_rank_us_ios": "US iOS 畅销 Top 3",
+    "chart_rank_cn_ios": "CN iOS Top 20 级",
+    "ua_intensity": "极高（50-60% 下载来自广告）",
+    "monetization": "IAP 主导，轻装饰元游戏",
+    "sources": [
+      { "label": "Business of Apps - Royal Match", "url": "https://www.businessofapps.com/data/royal-match-statistics/" },
+      { "label": "PocketGamer: Royal Match 占 Match3 IAP 51%", "url": "https://www.pocketgamer.biz/royal-match-earned-51-of-all-match-3-revenue-in-2024/" },
+      { "label": "Naavik: Royal Blueprint", "url": "https://naavik.co/digest/why-dream-games-success-is-a-challenge-to-replicate/" }
+    ],
+    "note": "2024 年全年收入 $1.46B，占 Match-3 类别 IAP 收入 51%"
+  },
+  {
+    "title": "Candy Crush Saga",
+    "publisher": "King",
+    "region": "Global",
+    "released_year": 2012,
+    "downloads": "14亿+ 累计",
+    "revenue_monthly_usd": "≈ $83M / 月（2024 年均）",
+    "revenue_timestamp": "2024 FY",
+    "dau": "N/A",
+    "mau": "1.8 亿",
+    "chart_rank_us_ios": "US iOS 畅销 Top 5",
+    "chart_rank_cn_ios": "CN iOS Top 10 级",
+    "ua_intensity": "中等（15-25% 下载来自广告）",
+    "monetization": "IAP 主导",
+    "sources": [
+      { "label": "Business of Apps - Candy Crush", "url": "https://www.businessofapps.com/data/candy-crush-statistics/" },
+      { "label": "Udonis: Candy Crush Revenue", "url": "https://www.blog.udonis.co/mobile-marketing/mobile-games/candy-crush" }
+    ],
+    "note": "连续多年年收入超过 $1B，稳定的长青产品"
+  },
+  {
+    "title": "Candy Crush Soda Saga",
+    "publisher": "King",
+    "region": "Global",
+    "released_year": 2014,
+    "downloads": "数亿累计",
+    "revenue_monthly_usd": "≈ $8M / 月",
+    "revenue_timestamp": "2026-02",
+    "dau": "N/A",
+    "mau": "N/A",
+    "chart_rank_us_ios": "US iOS 畅销 Top 20-30",
+    "chart_rank_cn_ios": "—",
+    "ua_intensity": "低",
+    "monetization": "IAP 主导",
+    "sources": [
+      { "label": "AppRank - Candy Crush Soda", "url": "https://apprank.io/candy-crush-soda-saga" }
+    ],
+    "note": "Soda Saga 已运营 11 年，累计 18000+ 关卡"
+  },
+  {
+    "title": "Gardenscapes",
+    "publisher": "Playrix",
+    "region": "Global",
+    "released_year": 2016,
+    "downloads": "10亿+ 累计（Playrix 全系 26 亿）",
+    "revenue_monthly_usd": "≈ $25M / 月（2024）",
+    "revenue_timestamp": "2024 FY",
+    "dau": "N/A",
+    "mau": "N/A",
+    "chart_rank_us_ios": "US iOS 畅销 Top 10-20",
+    "chart_rank_cn_ios": "—",
+    "ua_intensity": "中等",
+    "monetization": "IAP + 激励视频广告 混合",
+    "sources": [
+      { "label": "Statista - Playrix Top Grossing", "url": "https://www.statista.com/statistics/1218286/playrix-top-grossing-mobile-games/" },
+      { "label": "Business of Apps - Gardenscapes", "url": "https://www.businessofapps.com/data/gardenscapes-statistics/" }
+    ],
+    "note": "Playrix 的 Scapes 系列开山之作，首创 \"三消+装饰\" 范式"
+  },
+  {
+    "title": "Homescapes",
+    "publisher": "Playrix",
+    "region": "Global",
+    "released_year": 2017,
+    "downloads": "8亿+ 累计",
+    "revenue_monthly_usd": "≈ $20-28M / 月",
+    "revenue_timestamp": "2024 FY",
+    "dau": "N/A",
+    "mau": "N/A",
+    "chart_rank_us_ios": "US iOS 畅销 Top 10-20",
+    "chart_rank_cn_ios": "—",
+    "ua_intensity": "中等",
+    "monetization": "IAP + IAA 混合",
+    "sources": [
+      { "label": "Statista - Playrix", "url": "https://www.statista.com/statistics/1218286/playrix-top-grossing-mobile-games/" }
+    ],
+    "note": "延续 Gardenscapes 管家 Austin 叙事，Royal Match 之后对齐 4 色/25 步设计"
+  },
+  {
+    "title": "Fishdom",
+    "publisher": "Playrix",
+    "region": "Global",
+    "released_year": 2015,
+    "downloads": "数亿累计",
+    "revenue_monthly_usd": "≈ $15M+ / 月",
+    "revenue_timestamp": "2024 FY",
+    "dau": "N/A",
+    "mau": "N/A",
+    "chart_rank_us_ios": "US iOS 畅销 Top 20",
+    "chart_rank_cn_ios": "—",
+    "ua_intensity": "中等（素材争议经典）",
+    "monetization": "IAP + IAA 混合",
+    "sources": [
+      { "label": "Playrix Games", "url": "https://playrix.com/games/" }
+    ],
+    "note": "Match-3 + 水族箱装饰，广告素材以 \"拔销钉\" 闻名"
+  },
+  {
+    "title": "Toon Blast",
+    "publisher": "Peak Games",
+    "region": "Global",
+    "released_year": 2017,
+    "downloads": "5亿+ 累计",
+    "revenue_monthly_usd": "≈ $26M / 月（2024 H2）",
+    "revenue_timestamp": "2024 H2",
+    "dau": "N/A",
+    "mau": "N/A",
+    "chart_rank_us_ios": "US iOS 畅销 Top 10-20",
+    "chart_rank_cn_ios": "—",
+    "ua_intensity": "中等",
+    "monetization": "IAP 主导",
+    "sources": [
+      { "label": "AppMagic: Peak Games $5B", "url": "https://appmagic.rocks/blog/peak-games-5-billion-user-spending" }
+    ],
+    "note": "Tap-Blast 玩法代表作，Peak Games 全线累计用户消费已过 $5B"
+  },
+  {
+    "title": "Toy Blast",
+    "publisher": "Peak Games",
+    "region": "Global",
+    "released_year": 2015,
+    "downloads": "数亿累计",
+    "revenue_monthly_usd": "≈ $5M / 月",
+    "revenue_timestamp": "2026-02",
+    "dau": "N/A",
+    "mau": "N/A",
+    "chart_rank_us_ios": "US iOS 畅销 Top 20-40",
+    "chart_rank_cn_ios": "—",
+    "ua_intensity": "低",
+    "monetization": "IAP 主导",
+    "sources": [
+      { "label": "AppRank - Toy Blast", "url": "https://apprank.io/toy-blast" }
+    ],
+    "note": "Peak Games 早期代表作，长线稳定"
+  },
+  {
+    "title": "Match Masters",
+    "publisher": "Candivore",
+    "region": "Global",
+    "released_year": 2020,
+    "downloads": "7,500 万+ 累计",
+    "revenue_monthly_usd": "N/A（累计流水已突破 $3 亿）",
+    "revenue_timestamp": "2024",
+    "dau": "N/A",
+    "mau": "N/A",
+    "chart_rank_us_ios": "US iOS Puzzle Top 10",
+    "chart_rank_cn_ios": "—",
+    "ua_intensity": "高",
+    "monetization": "IAP + 竞技元素",
+    "sources": [
+      { "label": "MobileGamer.biz - Candivore $100M 融资", "url": "https://mobilegamer.biz/match-masters-maker-candivore-lands-100m-investment/" }
+    ],
+    "note": "以 \"实时 PVP 三消\" 切入，打破传统 PVE 范式"
+  },
+  {
+    "title": "开心消消乐",
+    "publisher": "乐元素",
+    "region": "China",
+    "released_year": 2013,
+    "downloads": "4亿+ 累计（PC+移动）",
+    "revenue_monthly_usd": "国内龙头，收入断层领先（公开月流水未披露）",
+    "revenue_timestamp": "2024",
+    "dau": "N/A",
+    "mau": "月活过亿",
+    "chart_rank_us_ios": "—",
+    "chart_rank_cn_ios": "CN iOS 消除品类 Top 1（长期）",
+    "ua_intensity": "低",
+    "monetization": "IAP 主导",
+    "sources": [
+      { "label": "点点数据 - 消除趋势报告", "url": "https://www.diandian.com/reports/zjjva5YBiMNMLA1D4ESB" },
+      { "label": "36氪 - 消除趋势报告解读", "url": "https://www.36kr.com/p/3086548626030081" }
+    ],
+    "note": "国内消除绝对龙头，女性用户占 66.9%，35+ 用户 61.96%"
+  },
+  {
+    "title": "梦幻花园（国内版）",
+    "publisher": "Playrix / 乐逗",
+    "region": "China",
+    "released_year": 2016,
+    "downloads": "2.6亿+ 累计",
+    "revenue_monthly_usd": "国内消除第二梯队领衔",
+    "revenue_timestamp": "2024",
+    "dau": "N/A",
+    "mau": "N/A",
+    "chart_rank_us_ios": "—",
+    "chart_rank_cn_ios": "CN iOS 消除品类 Top 3-5",
+    "ua_intensity": "中",
+    "monetization": "IAP + IAA 混合",
+    "sources": [
+      { "label": "点点数据 - 消除趋势报告", "url": "https://www.diandian.com/reports/zjjva5YBiMNMLA1D4ESB" }
+    ],
+    "note": "国内三消 + 模拟经营的代表性产品"
+  },
+  {
+    "title": "天天爱消除",
+    "publisher": "腾讯",
+    "region": "China",
+    "released_year": 2014,
+    "downloads": "数亿累计",
+    "revenue_monthly_usd": "长青产品，公开月流水未披露",
+    "revenue_timestamp": "2024",
+    "dau": "N/A",
+    "mau": "N/A",
+    "chart_rank_us_ios": "—",
+    "chart_rank_cn_ios": "CN iOS 消除品类 Top 3-5",
+    "ua_intensity": "低",
+    "monetization": "IAP + IAA",
+    "sources": [
+      { "label": "腾讯游戏官方", "url": "https://peng.qq.com/" }
+    ],
+    "note": "治愈系消除代表，依托微信/QQ 社交生态"
+  }
+]

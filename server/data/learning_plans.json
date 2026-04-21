@@ -1,0 +1,16 @@
+[
+  { "persona": "beginner", "week": 1, "title": "消除基础认知", "tasks": ["通关 Candy Crush Saga 前 30 关，记录每 5 关的难度感受", "阅读 Royal Match 新王拆解（Deconstructor of Fun）", "学习 L1-1 消除品类演化史", "用一段话总结四大基础机制 Swap/Tap/Blast/Link 的差异"] },
+  { "persona": "beginner", "week": 2, "title": "关卡设计入门", "tasks": ["学习 L2-1 关卡目标类型", "选择 3 个 Gardenscapes 关卡，记录其目标组合与阻挡物种类", "观看 King GDC Candy Crush Postmortem", "输出 1 个关卡原型设计（画在纸上即可）"] },
+  { "persona": "beginner", "week": 3, "title": "FTUE 与难度曲线", "tasks": ["学习 L2-2 难度曲线与 L2-3 FTUE", "分析 Royal Match 第 1-10 关 FTUE 节奏", "对比 Candy Crush 第 77 关付费墙设计", "为你自己的原型设计前 10 关难度曲线"] },
+  { "persona": "beginner", "week": 4, "title": "元玩法初步", "tasks": ["学习 L3-1 元玩法", "通关 Gardenscapes 30 关，观察装修剧情嵌入", "阅读 Royal Match 轻元游戏分析", "写 1 篇 500 字笔记：为你的原型选择轻/重元游戏方案"] },
+
+  { "persona": "level-designer", "week": 1, "title": "重新理解关卡的本质", "tasks": ["复盘你近 6 个月设计的关卡，分类标注目标类型", "学习 L2-1 + L2-2 全部内容", "研读 Playrix GDC 演讲《Creating Levels and Elements》", "用 1 张 Excel 统计你现有关卡的 7 日流失率 Top 10"] },
+  { "persona": "level-designer", "week": 2, "title": "数据驱动的关卡迭代", "tasks": ["为 10 个高流失关卡做假设清单（难度 / 教学 / 目标混乱？）", "学习 L5-2 A/B 测试驱动的长线运营", "阅读 Naavik《Royal Match: Success Through Iteration》", "为其中 3 个关卡各写 1 个 A/B 测试方案"] },
+  { "persona": "level-designer", "week": 3, "title": "经济系统与关卡的互动", "tasks": ["学习 L4-1 经济系统", "研究 Royal Match 商店包与关卡难度的对应关系", "设计一张表：关卡难度分位 vs 道具消耗中位数", "提出 1 个能提升付费渗透率的关卡调整方案"] },
+  { "persona": "level-designer", "week": 4, "title": "从关卡策划到制作人思维", "tasks": ["通读 Naavik《The Royal Blueprint》", "学习 L3-2 LiveOps 节奏", "撰写一份面向制作人的 1 页关卡评审模板", "与你团队内 1 位策划/制作人约一次对谈，分享你的 4 周收获"] },
+
+  { "persona": "producer", "week": 1, "title": "海外消除赛道格局", "tasks": ["通读 Sensor Tower/点点数据 2024 消除赛道报告", "拆解 Royal Match 2024 收入结构（IAP 为主 + 轻元游戏）", "整理 Top 10 海外消除产品的变现模式对比表", "识别你产品的直接对标（1-2 款）"] },
+  { "persona": "producer", "week": 2, "title": "核心玩法 100% 完美度", "tasks": ["学习 L1-2 + L3-1", "动手体验 Royal Match + Candy Crush + Gardenscapes + 你产品，做 10 维体验评分表", "输出 3 条核心玩法优化 checklist", "与主策划讨论并排期 1 个核心打磨迭代"] },
+  { "persona": "producer", "week": 3, "title": "变现与 LiveOps 框架", "tasks": ["学习 L4-1 + L4-2 + L3-2", "为产品设计未来 3 个月的赛季/活动节奏表（3 周一轮）", "对齐财务团队，做 ARPDAU/LTV 提升目标", "启动 1 个高优先级商品测试"] },
+  { "persona": "producer", "week": 4, "title": "买量与出海节奏", "tasks": ["学习 L5-1 买量素材方法论", "分析你产品与 Royal Match 在 AppGrowing 上的素材差距", "与 UA 团队制定一个季度的素材矩阵（3 大套路 × 各 5 条）", "产出 1 页的产品海外化战略备忘录"] }
+]
