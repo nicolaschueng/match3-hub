@@ -40,7 +40,17 @@ app.get('/api/articles', (req, res) => {
   if (q) { sql += ' AND (title LIKE ? OR ai_summary LIKE ?)'; args.push(`%${q}%`, `%${q}%`); }
   if (tag) { sql += ' AND tags LIKE ?'; args.push(`%${tag}%`); }
   if (match3 === 'true' || match3 === '1') {
-    sql += " AND (tags LIKE '%#消除%' OR tags LIKE '%#三消%' OR tags LIKE '%#RoyalMatch%' OR tags LIKE '%#CandyCrush%' OR tags LIKE '%#Playrix%' OR tags LIKE '%#King%')";
+    // 严格：标题必须出现消除/三消/头部产品名；或者标签含强相关品牌
+    sql += ` AND (
+      LOWER(title) LIKE '%match-3%' OR LOWER(title) LIKE '%match 3%' OR LOWER(title) LIKE '%royal match%'
+      OR LOWER(title) LIKE '%candy crush%' OR LOWER(title) LIKE '%playrix%' OR LOWER(title) LIKE '%gardenscapes%'
+      OR LOWER(title) LIKE '%homescapes%' OR LOWER(title) LIKE '%fishdom%' OR LOWER(title) LIKE '%toon blast%'
+      OR LOWER(title) LIKE '%toy blast%' OR LOWER(title) LIKE '%dream games%' OR LOWER(title) LIKE '%match masters%'
+      OR title LIKE '%消除%' OR title LIKE '%三消%' OR title LIKE '%消消%'
+      OR title LIKE '%开心消消乐%' OR title LIKE '%梦幻花园%' OR title LIKE '%梦幻家园%'
+      OR tags LIKE '%#RoyalMatch%' OR tags LIKE '%#CandyCrush%' OR tags LIKE '%#Playrix%'
+      OR tags LIKE '%#MatchMasters%' OR tags LIKE '%#Peak%' OR tags LIKE '%#三消%'
+    )`;
   }
   sql += ' ORDER BY published_at DESC, id DESC LIMIT ?';
   args.push(Number(limit) || 50);

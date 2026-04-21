@@ -2,10 +2,45 @@ import Parser from 'rss-parser';
 import { db, setMeta } from './db.js';
 import { summarize, dailyBrief } from './ai.js';
 
+// 模拟浏览器 UA + 较长超时，尽量绕过 403
 const parser = new Parser({
-  timeout: 15000,
-  headers: { 'User-Agent': 'Mozilla/5.0 Match3HubBot/0.2' },
+  timeout: 20000,
+  headers: {
+    'User-Agent':
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
+    Accept: 'application/rss+xml,application/xml;q=0.9,*/*;q=0.8',
+  },
 });
+
+// 原生 fetch 跟随重定向，手动解析，用于对付 GameLook 这类 301/302 站点
+async function fetchFeedText(url) {
+  const res = await fetch(url, {
+    redirect: 'follow',
+    headers: {
+      'User-Agent':
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
+      Accept: 'application/rss+xml,application/xml;q=0.9,*/*;q=0.8',
+    },
+    signal: AbortSignal.timeout(20000),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.text();
+}
+
+async function parseFeedAny(url) {
+  // 先尝试 rss-parser 直连
+  try {
+    return await parser.parseURL(url);
+  } catch (e1) {
+    // 失败则用原生 fetch + parseString 再试一次
+    try {
+      const text = await fetchFeedText(url);
+      return await parser.parseString(text);
+    } catch (e2) {
+      throw new Error(`${e1.message} | fallback: ${e2.message}`);
+    }
+  }
+}
 
 /** 强相关：出现 = 必收 */
 const STRONG_KW = [
@@ -47,7 +82,7 @@ export async function fetchAllSources({ force = false } = {}) {
   for (const s of sources) {
     perSource[s.name] = { scanned: 0, inserted: 0, error: null };
     try {
-      const feed = await parser.parseURL(s.rss_url);
+      const feed = await parseFeedAny(s.rss_url);
       for (const item of feed.items || []) {
         scanned += 1;
         perSource[s.name].scanned += 1;
@@ -86,23 +121,25 @@ export async function fetchAllSources({ force = false } = {}) {
   }
 
   const today = new Date().toISOString().slice(0, 10);
-  // 每日简报只选带消除/三消/头部产品标签的文章，避免综合媒体快讯污染
+  // 只选「标题/摘要强命中消除关键词」的文章作为简报素材
+  const WHERE_MATCH3 = `(
+    LOWER(title) LIKE '%match-3%' OR LOWER(title) LIKE '%match 3%' OR LOWER(title) LIKE '%royal match%'
+    OR LOWER(title) LIKE '%candy crush%' OR LOWER(title) LIKE '%playrix%' OR LOWER(title) LIKE '%gardenscapes%'
+    OR LOWER(title) LIKE '%homescapes%' OR LOWER(title) LIKE '%fishdom%' OR LOWER(title) LIKE '%toon blast%'
+    OR LOWER(title) LIKE '%toy blast%' OR LOWER(title) LIKE '%dream games%' OR LOWER(title) LIKE '%match masters%'
+    OR title LIKE '%消除%' OR title LIKE '%三消%' OR title LIKE '%消消%'
+    OR title LIKE '%开心消消乐%' OR title LIKE '%梦幻花园%' OR title LIKE '%梦幻家园%'
+    OR LOWER(ai_summary) LIKE '%royal match%' OR LOWER(ai_summary) LIKE '%candy crush%'
+    OR LOWER(ai_summary) LIKE '%playrix%' OR LOWER(ai_summary) LIKE '%gardenscapes%'
+    OR ai_summary LIKE '%消除%' OR ai_summary LIKE '%三消%'
+  )`;
   const briefPool = db
-    .prepare(
-      `SELECT source_name, title, ai_summary FROM articles
-       WHERE substr(created_at,1,10)=?
-         AND (tags LIKE '%#消除%' OR tags LIKE '%#三消%' OR tags LIKE '%#RoyalMatch%' OR tags LIKE '%#CandyCrush%' OR tags LIKE '%#Playrix%' OR tags LIKE '%#King%')
-       ORDER BY id DESC LIMIT 40`
-    )
+    .prepare(`SELECT source_name, title, ai_summary FROM articles WHERE substr(created_at,1,10)=? AND ${WHERE_MATCH3} ORDER BY id DESC LIMIT 40`)
     .all(today);
-  // 兜底：如果今日暂无消除相关，退回最近 7 天的消除相关
+  // 兜底：近 7 天的消除相关
   const todays = briefPool.length > 0
     ? briefPool
-    : db.prepare(
-        `SELECT source_name, title, ai_summary FROM articles
-         WHERE tags LIKE '%#消除%' OR tags LIKE '%#三消%' OR tags LIKE '%#RoyalMatch%' OR tags LIKE '%#CandyCrush%' OR tags LIKE '%#Playrix%' OR tags LIKE '%#King%'
-         ORDER BY published_at DESC LIMIT 15`
-      ).all();
+    : db.prepare(`SELECT source_name, title, ai_summary FROM articles WHERE ${WHERE_MATCH3} ORDER BY published_at DESC LIMIT 15`).all();
   const brief = await dailyBrief(todays);
   setMeta('daily_brief', brief);
   setMeta('daily_brief_date', today);

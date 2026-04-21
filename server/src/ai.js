@@ -9,20 +9,20 @@ export const aiEnabled = Boolean(OPENAI_API_KEY);
 /** 规则摘要：截取首句 + 关键词打标（一句话 ≤ 60 字） */
 function oneSentenceFallback(title, text) {
   let clean = (text || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-  // 去掉常见的署名/来源开头：作者丨X 编辑丨Y、文/X、图/X、撰文：X、By Author、硬氪获悉、36氪获悉、大公司：
   const NOISE_PATTERNS = [
     /^(作者|编辑|文|图|撰文|来源)[丨|｜/／:：]\s*[^ 。.!?！？]{1,20}\s*/g,
     /^(By|文|图)\s+[A-Za-z\u4e00-\u9fa5]{1,20}\s+/gi,
-    /^(硬氪获悉|36氪获悉|IT之家获悉|钛媒体获悉|界面新闻获悉)[，,、]?/g,
+    // IT之家 4 月 21 日消息， / 36氪获悉， / 钛媒体获悉 等站点套话
+    /^(IT之家|36氪|钛媒体|界面新闻|硬氪|新浪科技|腾讯科技|新京报|澎湃新闻)(\s*\d+\s*[年月日\s]*)*\s*(消息|获悉|报道|讯)[，,、]?\s*/g,
     /^大公司[：:]\s*/g,
+    // GameLook 自有开头：【GameLook专稿，禁止转载】 / 图片来源：xxx / GameLook报道/
+    /^(【?GameLook[^】]*】|图片来源[:：][^\s]+|GameLook报道\/)\s*/g,
   ];
-  // 反复剥离前缀
   let prev = null;
   while (prev !== clean) {
     prev = clean;
     for (const p of NOISE_PATTERNS) clean = clean.replace(p, '').trim();
   }
-  // 取首句（> 6 字）
   let first = clean.split(/[。.!?！？\n]/).find((s) => s && s.trim().length > 6) || '';
   first = first.trim();
   if (!first) first = title || '';
