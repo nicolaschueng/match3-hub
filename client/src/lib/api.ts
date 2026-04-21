@@ -10,7 +10,7 @@ export const api = {
   health: () => j<{ ok: boolean; ai: boolean; last_fetch_at: string | null; last_fetch_inserted: string | null; last_fetch_scanned: string | null }>('/health'),
   brief: () => j<{ date: string | null; brief: string; last_fetch_at: string | null }>('/brief'),
   refresh: () => j<{ ok: boolean; scanned: number; inserted: number }>('/refresh', { method: 'POST' }),
-  articles: (p: { lang?: string; q?: string; tag?: string; limit?: number; match3?: boolean } = {}) => {
+  articles: (p: { lang?: string; q?: string; tag?: string; limit?: number; match3?: boolean; casual?: boolean } = {}) => {
     const q = new URLSearchParams(
       Object.entries(p)
         .filter(([, v]) => v !== undefined && v !== '' && v !== false)

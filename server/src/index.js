@@ -33,7 +33,7 @@ app.get('/api/brief', (_req, res) => {
 });
 
 app.get('/api/articles', (req, res) => {
-  const { lang, q, tag, limit = 50, match3 } = req.query;
+  const { lang, q, tag, limit = 50, match3, casual } = req.query;
   let sql = 'SELECT * FROM articles WHERE 1=1';
   const args = [];
   if (lang) { sql += ' AND lang = ?'; args.push(lang); }
@@ -43,14 +43,20 @@ app.get('/api/articles', (req, res) => {
     // 严格：标题必须出现消除/三消/头部产品名；或者标签含强相关品牌
     sql += ` AND (
       LOWER(title) LIKE '%match-3%' OR LOWER(title) LIKE '%match 3%' OR LOWER(title) LIKE '%royal match%'
-      OR LOWER(title) LIKE '%candy crush%' OR LOWER(title) LIKE '%playrix%' OR LOWER(title) LIKE '%gardenscapes%'
+      OR LOWER(title) LIKE '%royal kingdom%' OR LOWER(title) LIKE '%candy crush%'
+      OR LOWER(title) LIKE '%playrix%' OR LOWER(title) LIKE '%gardenscapes%'
       OR LOWER(title) LIKE '%homescapes%' OR LOWER(title) LIKE '%fishdom%' OR LOWER(title) LIKE '%toon blast%'
       OR LOWER(title) LIKE '%toy blast%' OR LOWER(title) LIKE '%dream games%' OR LOWER(title) LIKE '%match masters%'
+      OR LOWER(title) LIKE '%match 3d%'
       OR title LIKE '%消除%' OR title LIKE '%三消%' OR title LIKE '%消消%'
       OR title LIKE '%开心消消乐%' OR title LIKE '%梦幻花园%' OR title LIKE '%梦幻家园%'
       OR tags LIKE '%#RoyalMatch%' OR tags LIKE '%#CandyCrush%' OR tags LIKE '%#Playrix%'
       OR tags LIKE '%#MatchMasters%' OR tags LIKE '%#Peak%' OR tags LIKE '%#三消%'
+      OR tags LIKE '%#消除%'
     )`;
+  } else if (casual === 'true' || casual === '1') {
+    // 默认"消除 + 休闲游戏"：凡入库的都含 #休闲 / #消除 标签（抓取层已过滤非游戏内容）
+    sql += " AND (tags LIKE '%#休闲%' OR tags LIKE '%#消除%')";
   }
   sql += ' ORDER BY published_at DESC, id DESC LIMIT ?';
   args.push(Number(limit) || 50);

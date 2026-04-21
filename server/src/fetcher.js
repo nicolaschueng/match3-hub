@@ -42,18 +42,27 @@ async function parseFeedAny(url) {
   }
 }
 
-/** 强相关：出现 = 必收 */
+/** 强相关：消除 / 三消 / 头部产品 / 核心厂商 */
 const STRONG_KW = [
-  '消除', '三消', '消消', 'match-3', 'match 3', 'match3', 'puzzle',
-  'royal match', 'candy crush', 'gardenscapes', 'homescapes',
-  'toon blast', 'toy blast', 'match masters', 'playrix', 'dream games', 'king',
+  '消除', '三消', '消消', 'match-3', 'match 3', 'match3', 'match 3d',
+  'royal match', 'royal kingdom', 'candy crush', 'gardenscapes', 'homescapes', 'fishdom',
+  'toon blast', 'toy blast', 'match masters', 'playrix', 'dream games', 'peak games', 'candivore',
   '开心消消乐', '梦幻花园', '梦幻家园', '天天爱消除', '乐元素',
 ];
-/** 弱相关（仅中文源生效）：手游/买量/变现/出海等行业话题纳入 */
-const ZH_WEAK_KW = [
-  '手游', '买量', '变现', '出海', 'liveops', '休闲游戏', '休闲手游',
-  'iap', 'iaa', 'arppu', 'ltv', 'roi', '素材', '关卡', '发行',
-  '腾讯', '网易', '莉莉丝', '米哈游', 'sensor tower', 'appmagic',
+
+/** 休闲游戏 / 手游品类相关，允许进入 "休闲赛道" 大池子 */
+const CASUAL_KW = [
+  '休闲游戏', '休闲手游', '超休闲', 'hyper-casual', 'hyper casual', 'hypercasual',
+  'casual game', 'casual games', 'casual puzzle', 'puzzle game', 'puzzle games',
+  'merge game', 'merge games', 'merge-2', 'merge 2', 'solitaire', 'bubble shooter', 'block blast',
+  'monopoly go', 'coin master', 'matchington',
+  '合成', '合合合', '消除类', '益智游戏', '益智手游', '解谜游戏',
+  'sensor tower', 'appmagic', 'data.ai', 'gamerefinery',
+  '点点数据', 'appgrowing', 'dataeye',
+  '买量', '变现', '出海手游', '手游发行',
+  'user acquisition', 'mobile game', 'mobile games', 'mobile monetization',
+  'retention', 'liveops', 'live ops', 'live-ops',
+  '伽马数据', '关卡设计', '新手教程', 'a/b test', 'a/b 测试',
 ];
 
 function lower(s) { return (s || '').toLowerCase(); }
@@ -62,15 +71,11 @@ function hasAny(text, keywords) {
   return keywords.some((k) => t.includes(k));
 }
 
-function classify(title, content, lang) {
-  const text = `${title} ${content}`;
-  if (hasAny(text, STRONG_KW)) return { keep: true, match3: true };
-  // 中文弱相关：要求标题或内容前 300 字出现弱关键词，降低噪声
-  if (lang === 'zh') {
-    const narrow = `${title} ${(content || '').slice(0, 300)}`;
-    if (hasAny(narrow, ZH_WEAK_KW)) return { keep: true, match3: false };
-  }
-  return { keep: false, match3: false };
+function classify(title, content) {
+  const text = `${title} ${(content || '').slice(0, 500)}`;
+  if (hasAny(text, STRONG_KW)) return { keep: true, match3: true, casual: true };
+  if (hasAny(text, CASUAL_KW)) return { keep: true, match3: false, casual: true };
+  return { keep: false, match3: false, casual: false };
 }
 
 export async function fetchAllSources({ force = false } = {}) {
@@ -90,13 +95,16 @@ export async function fetchAllSources({ force = false } = {}) {
         const url = item.link || item.guid;
         if (!url) continue;
         const raw = item.contentSnippet || item.content || item.summary || '';
-        const cls = classify(title, raw, s.lang);
+        const cls = classify(title, raw);
         if (!force && !cls.keep) continue;
 
         const existed = db.prepare('SELECT id FROM articles WHERE url=?').get(url);
         if (existed) continue;
 
         const { summary, tags } = await summarize(title, raw, { match3: cls.match3 });
+        // 固化分类标签，方便前后端筛选
+        if (cls.match3 && !tags.includes('#消除')) tags.unshift('#消除');
+        if (cls.casual && !tags.includes('#休闲')) tags.push('#休闲');
         db.prepare(
           `INSERT INTO articles(source_id, source_name, lang, title, url, published_at, raw_summary, ai_summary, tags)
            VALUES (?,?,?,?,?,?,?,?,?)`

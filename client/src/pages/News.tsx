@@ -2,20 +2,32 @@ import { useEffect, useMemo, useState } from 'react';
 import { ExternalLink, Filter, Globe2, Search, Quote } from 'lucide-react';
 import { api, Article, Source } from '../lib/api';
 
+type Scope = 'match3' | 'casual' | 'all';
+
 export default function News() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [sources, setSources] = useState<Source[]>([]);
   const [lang, setLang] = useState('');
   const [q, setQ] = useState('');
   const [tag, setTag] = useState('');
+  const [scope, setScope] = useState<Scope>('match3');
 
   useEffect(() => {
     api.sources().then(setSources);
   }, []);
 
   useEffect(() => {
-    api.articles({ lang: lang || undefined, q: q || undefined, tag: tag || undefined, limit: 120 }).then(setArticles);
-  }, [lang, q, tag]);
+    api
+      .articles({
+        lang: lang || undefined,
+        q: q || undefined,
+        tag: tag || undefined,
+        limit: 120,
+        match3: scope === 'match3' ? true : undefined,
+        casual: scope === 'casual' ? true : undefined,
+      })
+      .then(setArticles);
+  }, [lang, q, tag, scope]);
 
   const stat = useMemo(() => {
     const total = articles.length;
@@ -40,6 +52,26 @@ export default function News() {
           共 <span className="text-slate-200">{stat.total}</span> 条 · 中文 <span className="text-slate-200">{stat.zh}</span> · 英文 <span className="text-slate-200">{stat.en}</span>
         </div>
       </header>
+
+      {/* 范围切换 */}
+      <div className="flex items-center gap-1 p-1 rounded-xl bg-white/5 border border-white/10 w-fit">
+        {([
+          { id: 'match3', label: '仅消除赛道', desc: 'Match-3 / 三消' },
+          { id: 'casual', label: '消除 + 休闲', desc: '含休闲/益智/合成等' },
+          { id: 'all', label: '全部游戏资讯', desc: '不做范围限制' },
+        ] as { id: Scope; label: string; desc: string }[]).map((t) => (
+          <button
+            key={t.id}
+            onClick={() => setScope(t.id)}
+            className={`px-3.5 py-1.5 rounded-lg text-sm transition-all ${
+              scope === t.id ? 'bg-brand-500 text-white shadow' : 'text-slate-300 hover:bg-white/5'
+            }`}
+            title={t.desc}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
 
       <div className="card p-4 flex flex-col md:flex-row md:items-center gap-3">
         <div className="flex items-center gap-2 flex-1">
@@ -74,7 +106,7 @@ export default function News() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {articles.length === 0 && (
           <div className="card p-8 text-center text-slate-400 md:col-span-2">
-            暂无匹配资讯。后台每日自动抓取，你也可以点右上角「立即刷新」。
+            当前范围下暂无匹配资讯。可以试试切换到 <button onClick={() => setScope('casual')} className="text-brand-300 hover:text-brand-200">消除 + 休闲</button> 或点右上角「立即刷新」。
           </div>
         )}
         {articles.map((a) => <NewsCard key={a.id} a={a} />)}
