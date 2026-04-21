@@ -119,6 +119,17 @@ app.post('/api/refresh', async (_req, res) => {
   }
 });
 
+/** 清空所有文章并重新抓取（用于过滤规则升级后清理旧数据） */
+app.post('/api/rebuild', async (_req, res) => {
+  try {
+    db.prepare('DELETE FROM articles').run();
+    const r = await fetchAllSources({ force: false });
+    res.json({ ok: true, cleared: true, ...r });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
 function safeParse(s, fallback) {
   try { return JSON.parse(s); } catch { return fallback; }
 }
