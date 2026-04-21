@@ -1,11 +1,15 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import path from 'node:path';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { db, getMeta } from './db.js';
 import { fetchAllSources } from './fetcher.js';
 import { startCron } from './cron.js';
 import { aiEnabled } from './ai.js';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -100,8 +104,18 @@ function safeParse(s, fallback) {
   try { return JSON.parse(s); } catch { return fallback; }
 }
 
+// —— 静态资源（生产：托管前端 dist） ——
+const clientDist = path.resolve(__dirname, '../../client/dist');
+if (fs.existsSync(clientDist)) {
+  app.use(express.static(clientDist));
+  app.get(/^\/(?!api).*/, (_req, res) => {
+    res.sendFile(path.join(clientDist, 'index.html'));
+  });
+  console.log('[server] serving static from', clientDist);
+}
+
 const PORT = Number(process.env.PORT || 3001);
-app.listen(PORT, () => {
-  console.log(`[server] Match3 Hub API listening on http://localhost:${PORT}  (AI=${aiEnabled ? 'on' : 'off'})`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`[server] Match3 Hub API listening on :${PORT}  (AI=${aiEnabled ? 'on' : 'off'})`);
   startCron();
 });

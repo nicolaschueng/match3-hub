@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: match3-hub
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    autoDeploy: true
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # 如果需要启用 LLM 摘要，在 Render Dashboard 里追加：
+      # OPENAI_API_KEY / OPENAI_BASE_URL / OPENAI_MODEL
