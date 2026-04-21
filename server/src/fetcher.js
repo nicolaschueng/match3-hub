@@ -50,7 +50,7 @@ const STRONG_KW = [
   '开心消消乐', '梦幻花园', '梦幻家园', '天天爱消除', '乐元素',
 ];
 
-/** 休闲游戏 / 手游品类相关，允许进入 "休闲赛道" 大池子 */
+/** 休闲游戏 / 手游品类相关（英文关键词要求较严，避免误命中） */
 const CASUAL_KW = [
   '休闲游戏', '休闲手游', '超休闲', 'hyper-casual', 'hyper casual', 'hypercasual',
   'casual game', 'casual games', 'casual puzzle', 'puzzle game', 'puzzle games',
@@ -65,16 +65,35 @@ const CASUAL_KW = [
   '伽马数据', '关卡设计', '新手教程', 'a/b test', 'a/b 测试',
 ];
 
+/** 中文源的兜底宽泛词（仅标题命中生效，避免纳入 AI / 政策 / 商标等快讯） */
+const ZH_LOOSE_TITLE_KW = [
+  '手游', '游戏', '小游戏', '关卡', '出海', '发行', '厂商', '上线',
+  '买量', '变现', 'IAP', '收入', '流水', '畅销',
+];
+
+/** 中文源标题里若出现这些词，即便有"游戏"也不收（剔除游戏本/AI/量子/手柄/手机/政策类） */
+const ZH_NEG_TITLE_KW = [
+  '游戏本', '游戏手柄', '游戏机', '手柄', '主机', '硬件', '处理器', '显卡',
+  '量子', '人工智能', 'AI 大模型', 'API', '大模型', '机器人', '芯片', '半导体',
+  '商标', '版权', '股价', '财报', '融资', '上市', '招标',
+  '半衰期', '反恐精英', '使命召唤',
+];
+
 function lower(s) { return (s || '').toLowerCase(); }
 function hasAny(text, keywords) {
   const t = lower(text);
   return keywords.some((k) => t.includes(k));
 }
 
-function classify(title, content) {
+function classify(title, content, lang) {
   const text = `${title} ${(content || '').slice(0, 500)}`;
   if (hasAny(text, STRONG_KW)) return { keep: true, match3: true, casual: true };
   if (hasAny(text, CASUAL_KW)) return { keep: true, match3: false, casual: true };
+  // 中文源兜底：仅凭标题命中宽泛游戏词时入库（仍标记为 casual）
+  if (lang === 'zh' && hasAny(title, ZH_LOOSE_TITLE_KW)) {
+    if (hasAny(title, ZH_NEG_TITLE_KW)) return { keep: false, match3: false, casual: false };
+    return { keep: true, match3: false, casual: true };
+  }
   return { keep: false, match3: false, casual: false };
 }
 
@@ -95,7 +114,7 @@ export async function fetchAllSources({ force = false } = {}) {
         const url = item.link || item.guid;
         if (!url) continue;
         const raw = item.contentSnippet || item.content || item.summary || '';
-        const cls = classify(title, raw);
+        const cls = classify(title, raw, s.lang);
         if (!force && !cls.keep) continue;
 
         const existed = db.prepare('SELECT id FROM articles WHERE url=?').get(url);
